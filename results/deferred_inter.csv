@@ -1,0 +1,4 @@
+spec,current_cycles,deferred_cycles,current_time_reduction_pct,current_last_inter_end_ns,deferred_last_inter_end_ns,last_inter_advance_ns,current_overlap_fraction,deferred_overlap_fraction,current_post_inter_fct_tail_ns,deferred_post_inter_fct_tail_ns,new_dependencies
+3x4,14128570,14892155,5.127431187762953,11713662,12834437,1120775,0.527914,0.481483,2414908,2057718,18
+4x4,20027542,21069810,4.946736586613738,17545194,18616847,1071653,0.395919,0.366955,2482348,2452963,36
+8x4,46213059,47259252,2.213731609632755,40920192,41966385,1046193,0.30387,0.293459,5292867,5292867,168

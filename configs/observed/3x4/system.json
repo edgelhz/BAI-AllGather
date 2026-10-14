@@ -1,0 +1,9 @@
+{
+  "scheduling-policy": "FIFO",
+  "preferred-dataset-splits": 1,
+  "active-chunks-per-dimension": 1,
+  "all-gather-implementation-custom": [
+    "/app/astra-sim/astra-sim/bai_multinode_remote_core/perf_star_16MiB/3x4/16777216B/et/custom_allgather"
+  ],
+  "local-mem-bw": 1600
+}

@@ -1,0 +1,22 @@
+{
+  "astra": {
+    "path": "/app/astra-sim/astra-sim",
+    "commit": "28f18ea0d58a96fd812e49b71bdac330a1e3c965",
+    "tracked_changes": "M astra-sim/system/astraccl/custom_collectives/CustomAlgorithm.cc\n M astra-sim/system/astraccl/custom_collectives/CustomAlgorithm.hh\n M examples/system/custom_collectives/create_custom_allreduce_algorithm.sh"
+  },
+  "ns3": {
+    "path": "/app/astra-sim/astra-sim/extern/network_backend/ns-3",
+    "commit": "40d9153caefb9ac1a6ec316aedad3068cfc0fbc9",
+    "tracked_changes": ""
+  },
+  "msccl": {
+    "path": "/app/astra-sim/collectiveapi/msccl-tools",
+    "commit": "8d735800a87bf4426816e2c10a9834a42ab64fe6",
+    "tracked_changes": "M examples/mscclang/allreduce_a100_ring.py"
+  },
+  "sha256": {
+    "scheduler": "fcdb2ba1d581d45de7ce756607536edf45a57081298679459e2e880043705515",
+    "simulator_binary": "47aed685b1fb350e773d52a2776ac86f2b4dd464c6866ab7fbedef9a3b2b53f2",
+    "chakra_converter": "e28edb8d1b1c4366fcb142509662bbeac56d945ed3b046f41eaf34a442a0f2d9"
+  }
+}

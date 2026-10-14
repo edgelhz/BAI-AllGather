@@ -1,0 +1,52 @@
+{
+  "spec": "3x4",
+  "original_case": "<ASTRA_PROJECT>/astra-sim/bai_multinode_remote_core/perf_star_16MiB/3x4/16777216B",
+  "input_sha256": {
+    "<ASTRA_PROJECT>/astra-sim/extern/network_backend/ns-3/build/scratch/ns3.42-AstraSimNetwork-default": "47aed685b1fb350e773d52a2776ac86f2b4dd464c6866ab7fbedef9a3b2b53f2",
+    "<ASTRA_PROJECT>/astra-sim/bai_multinode_remote_core/perf_star_16MiB/3x4/16777216B/network.txt": "6b1ee23a14bb7f163fd3c09b91c57fce86bb536123f9ed8e83750f9888f8efae",
+    "<ASTRA_PROJECT>/astra-sim/bai_multinode_remote_core/perf_star_16MiB/3x4/16777216B/system.json": "c39455f5f7f0db6e5c5e0e519edb9f94b9bd927a06fb527073d7d2ecc2201627",
+    "<ASTRA_PROJECT>/astra-sim/bai_multinode_remote_core/perf_star_16MiB/3x4/16777216B/logical.json": "2c1b8086750ea3cc801e8edb7a490e5f30d5039f453d12abec90d92b17352b11",
+    "<ASTRA_PROJECT>/astra-sim/examples/remote_memory/analytical/no_memory_expansion.json": "486e09209a43d2aa360b8e441d6e4ff32014d4f133bdf72286d1e1c533227dec",
+    "<ASTRA_PROJECT>/astra-sim/bai_multinode_remote_core/perf_star_16MiB/3x4/16777216B/workload/all_gather.0.et": "1c5a5ea91362eea1a00a1978991c6b3ded7073bab40a0b19065d74fb2ab9ab24",
+    "<ASTRA_PROJECT>/astra-sim/bai_multinode_remote_core/perf_star_16MiB/3x4/16777216B/workload/all_gather.1.et": "1c5a5ea91362eea1a00a1978991c6b3ded7073bab40a0b19065d74fb2ab9ab24",
+    "<ASTRA_PROJECT>/astra-sim/bai_multinode_remote_core/perf_star_16MiB/3x4/16777216B/workload/all_gather.2.et": "1c5a5ea91362eea1a00a1978991c6b3ded7073bab40a0b19065d74fb2ab9ab24",
+    "<ASTRA_PROJECT>/astra-sim/bai_multinode_remote_core/perf_star_16MiB/3x4/16777216B/workload/all_gather.3.et": "1c5a5ea91362eea1a00a1978991c6b3ded7073bab40a0b19065d74fb2ab9ab24",
+    "<ASTRA_PROJECT>/astra-sim/bai_multinode_remote_core/perf_star_16MiB/3x4/16777216B/workload/all_gather.4.et": "1c5a5ea91362eea1a00a1978991c6b3ded7073bab40a0b19065d74fb2ab9ab24",
+    "<ASTRA_PROJECT>/astra-sim/bai_multinode_remote_core/perf_star_16MiB/3x4/16777216B/workload/all_gather.5.et": "1c5a5ea91362eea1a00a1978991c6b3ded7073bab40a0b19065d74fb2ab9ab24",
+    "<ASTRA_PROJECT>/astra-sim/bai_multinode_remote_core/perf_star_16MiB/3x4/16777216B/workload/all_gather.6.et": "1c5a5ea91362eea1a00a1978991c6b3ded7073bab40a0b19065d74fb2ab9ab24",
+    "<ASTRA_PROJECT>/astra-sim/bai_multinode_remote_core/perf_star_16MiB/3x4/16777216B/workload/all_gather.7.et": "1c5a5ea91362eea1a00a1978991c6b3ded7073bab40a0b19065d74fb2ab9ab24",
+    "<ASTRA_PROJECT>/astra-sim/bai_multinode_remote_core/perf_star_16MiB/3x4/16777216B/workload/all_gather.8.et": "1c5a5ea91362eea1a00a1978991c6b3ded7073bab40a0b19065d74fb2ab9ab24",
+    "<ASTRA_PROJECT>/astra-sim/bai_multinode_remote_core/perf_star_16MiB/3x4/16777216B/workload/all_gather.9.et": "1c5a5ea91362eea1a00a1978991c6b3ded7073bab40a0b19065d74fb2ab9ab24",
+    "<ASTRA_PROJECT>/astra-sim/bai_multinode_remote_core/perf_star_16MiB/3x4/16777216B/workload/all_gather.10.et": "1c5a5ea91362eea1a00a1978991c6b3ded7073bab40a0b19065d74fb2ab9ab24",
+    "<ASTRA_PROJECT>/astra-sim/bai_multinode_remote_core/perf_star_16MiB/3x4/16777216B/workload/all_gather.11.et": "1c5a5ea91362eea1a00a1978991c6b3ded7073bab40a0b19065d74fb2ab9ab24"
+  },
+  "environment": {
+    "NS_GLOBAL_VALUE": "<unset>"
+  },
+  "original": {
+    "cycles": 14128570,
+    "flows": 132,
+    "last_end": 14128570,
+    "flow_sha256": "88ca8271db57bb1d4439616700a30c0b8c3ce3606787dc340c575f5978f1de6c"
+  },
+  "seed_source_hits": {
+    "count": 0,
+    "file": "<ASTRA_PROJECT>/astra-sim/bai_multinode_remote_core/r3_repeatability_20261014/3x4/r3_rng_source_hits.txt"
+  },
+  "validation_runs": [
+    {
+      "cycles": 14128570,
+      "flows": 132,
+      "last_end": 14128570,
+      "flow_sha256": "88ca8271db57bb1d4439616700a30c0b8c3ce3606787dc340c575f5978f1de6c",
+      "cycles_match_original": true,
+      "fct_matches_original": true
+    }
+  ],
+  "summary": {
+    "samples_including_original": 2,
+    "all_cycles_equal": true,
+    "cycle_range": 0,
+    "population_std_cycles": 0.0
+  }
+}

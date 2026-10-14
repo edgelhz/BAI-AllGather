@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.log
+*.et
+*.tr
+*.pid
+.env
+.venv/
+.DS_Store
+raw_runs/
+
+.env.*
+*.key
+*.pem

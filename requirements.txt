@@ -1,0 +1,3 @@
+# Third-party simulator and MSCCLang dependencies are external.
+# Do not infer a pip-only environment from this file.
+# See reproducibility/environment.md

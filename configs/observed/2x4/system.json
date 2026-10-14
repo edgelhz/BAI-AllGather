@@ -1,0 +1,9 @@
+{
+  "active-chunks-per-dimension": 1,
+  "all-gather-implementation-custom": [
+    "/app/astra-sim/astra-sim/bai_multinode_remote_core/paper_current_2x4_400_100/16MiB/current/et/custom_allgather"
+  ],
+  "local-mem-bw": 1600,
+  "preferred-dataset-splits": 1,
+  "scheduling-policy": "FIFO"
+}

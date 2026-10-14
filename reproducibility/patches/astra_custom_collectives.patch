@@ -1,0 +1,99 @@
+diff --git a/astra-sim/system/astraccl/custom_collectives/CustomAlgorithm.cc b/astra-sim/system/astraccl/custom_collectives/CustomAlgorithm.cc
+index e6351fb..c4e0bbd 100644
+--- a/astra-sim/system/astraccl/custom_collectives/CustomAlgorithm.cc
++++ b/astra-sim/system/astraccl/custom_collectives/CustomAlgorithm.cc
+@@ -86,9 +86,16 @@ void CustomAlgorithm::issue(shared_ptr<Chakra::FeederV3::ETFeederNode> node) {
+         WorkloadLayerHandlerData* wlhd = new WorkloadLayerHandlerData;
+         wlhd->node_id = node->id();
+         uint64_t runtime = 1ul;
+-        if (node->runtime() != 0ul) {
+-            // chakra runtimes are in microseconds and we should convert it into
+-            // nanoseconds.
++
++        // Custom collective COMP nodes may optionally provide nanosecond
++        // precision through a generic Chakra attribute. This avoids the
++        // integer-microsecond quantization of duration_micros.
++        if (node->has_attr("duration_ns")) {
++            const ChakraProtoMsg::AttributeProto& duration_attr =
++                node->get_attr_msg("duration_ns");
++            runtime = static_cast<uint64_t>(duration_attr.int64_val());
++        } else if (node->runtime() != 0ul) {
++            // Chakra duration_micros is expressed in microseconds.
+             runtime = node->runtime() * 1000;
+         }
+         stream->owner->register_event(this, EventType::General, wlhd, runtime);
+@@ -111,7 +118,10 @@ void CustomAlgorithm::issue_dep_free_nodes() {
+ // Release the Chakra node for the completed operator and issue downstream
+ // nodes.
+ void CustomAlgorithm::call(EventType event, CallData* data) {
++    ++execution_depth;
++
+     if (data == nullptr) {
++        --execution_depth;
+         throw runtime_error(
+             "CustomAlgorithm::call does not have node id encoded "
+             "(CallData* data is null).");
+@@ -121,20 +131,43 @@ void CustomAlgorithm::call(EventType event, CallData* data) {
+     shared_ptr<Chakra::FeederV3::ETFeederNode> node =
+         et_feeder->lookupNode(wlhd->node_id);
+     auto& dep_resolver = et_feeder->getDependancyResolver();
++
+     dep_resolver.finish_node(wlhd->node_id);
+     issue_dep_free_nodes();
+     delete wlhd;
+ 
+-    if (dep_resolver.get_ongoing_nodes().empty() &&
+-        dep_resolver.get_dependancy_free_nodes().empty()) {
+-        // There are no more nodes to execute, and no node is executing, so we
+-        // finish the collective algorithm.
++    const bool done =
++        dep_resolver.get_ongoing_nodes().empty() &&
++        dep_resolver.get_dependancy_free_nodes().empty();
++
++    --execution_depth;
++
++    // exit() eventually causes the current algorithm object to be deleted.
++    // A synchronous network completion may have re-entered call() while an
++    // outer call()/run() is still executing, so destruction is only safe once
++    // the outermost execution frame has unwound.
++    if (done && execution_depth == 0) {
+         exit();
++        return;
+     }
+ }
+ 
+ void CustomAlgorithm::run(EventType event, CallData* data) {
++    ++execution_depth;
++
+     // Start executing the collective algorithm implementation by issuing the
+     // root nodes.
+     issue_dep_free_nodes();
++
++    auto& dep_resolver = et_feeder->getDependancyResolver();
++    const bool done =
++        dep_resolver.get_ongoing_nodes().empty() &&
++        dep_resolver.get_dependancy_free_nodes().empty();
++
++    --execution_depth;
++
++    if (done && execution_depth == 0) {
++        exit();
++        return;
++    }
+ }
+diff --git a/astra-sim/system/astraccl/custom_collectives/CustomAlgorithm.hh b/astra-sim/system/astraccl/custom_collectives/CustomAlgorithm.hh
+index 2893b5d..20eb970 100644
+--- a/astra-sim/system/astraccl/custom_collectives/CustomAlgorithm.hh
++++ b/astra-sim/system/astraccl/custom_collectives/CustomAlgorithm.hh
+@@ -63,6 +63,11 @@ class CustomAlgorithm : public Algorithm {
+     // to traverse the whole workload Chakra ET.
+     Chakra::ETFeeder* et_feeder;
+     CommunicatorGroup* comm_group;
++
++    // Custom collective network operations may complete synchronously while
++    // issue_dep_free_nodes() is still on the stack.  Do not allow exit() to
++    // destroy this algorithm until the outermost execution frame unwinds.
++    int execution_depth = 0;
+ };
+ 
+ }  // namespace AstraSim
