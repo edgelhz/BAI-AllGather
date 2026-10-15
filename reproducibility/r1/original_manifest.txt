@@ -1,0 +1,9 @@
+ASTRA=/app/astra-sim/astra-sim
+CAPI=/app/astra-sim/collectiveapi
+RUN=/app/astra-sim/collectiveapi/runs/fullmesh_ring_priority_v2_matched_20260919_083537
+NETWORK=/app/astra-sim/astra-sim/extern/network_backend/ns-3/scratch/config/config_2node_4x4_1lane_slow_inter.txt
+TOPOLOGY=/app/astra-sim/astra-sim/extern/network_backend/ns-3/scratch/topology/8_nodes_2switch_2x4_1lane_slow_inter_topology.txt
+SYSTEM=/app/astra-sim/collectiveapi/runs/fullmesh_ring_priority_v2_matched_20260919_083537/16MiB/priority_inter_v2.json
+GIT[/app/astra-sim/astra-sim]=28f18ea0d58a96fd812e49b71bdac330a1e3c965
+GIT[/app/astra-sim/astra-sim/extern/network_backend/ns-3]=40d9153caefb9ac1a6ec316aedad3068cfc0fbc9
+GIT[/app/astra-sim/collectiveapi/msccl-tools]=8d735800a87bf4426816e2c10a9834a42ab64fe6

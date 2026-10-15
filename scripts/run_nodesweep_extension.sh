@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
+BAI_WORKSPACE="${BAI_WORKSPACE:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
 set -euo pipefail
 
-ASTRA="${ASTRA:-/app/astra-sim/astra-sim}"
+ASTRA="${ASTRA:-${BAI_WORKSPACE}/astra-sim}"
 BASE="${BASE:-$ASTRA/bai_multinode_remote_core}"
 ROOT="${ROOT:-$BASE/perf_star_16MiB}"
-CAPI="${CAPI:-/app/astra-sim/collectiveapi}"
-PY="${PY:-/opt/venv/astra-sim/bin/python3}"
+CAPI="${CAPI:-${BAI_WORKSPACE}/collectiveapi}"
+PY="${PY:-${BAI_PY:-python3}}"
 
 SPECS="${SPECS:-5x4 6x4 8x4}"
 RUN_SIM="${RUN_SIM:-1}"

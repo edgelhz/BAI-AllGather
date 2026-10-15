@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
+BAI_WORKSPACE="${BAI_WORKSPACE:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
 set -euo pipefail
 
-ASTRA=${ASTRA:-/app/astra-sim/astra-sim}
-CAPI=${CAPI:-/app/astra-sim/collectiveapi}
+ASTRA=${ASTRA:-${BAI_WORKSPACE}/astra-sim}
+CAPI=${CAPI:-${BAI_WORKSPACE}/collectiveapi}
 NS3=${NS3:-$ASTRA/extern/network_backend/ns-3}
-PY=${PY:-/opt/venv/astra-sim/bin/python3}
+PY=${PY:-${BAI_PY:-python3}}
 BASE=${BASE:-$ASTRA/bai_multinode_remote_core}
 ROOT=${ROOT:-$BASE/perf_star_16MiB}
 
-CONVERTER=${CONVERTER:-/app/astra-sim/collectiveapi-046d961/chakra_converter/et_converter.py}
+CONVERTER=${CONVERTER:-${BAI_WORKSPACE}/collectiveapi-046d961/chakra_converter/et_converter.py}
 BIN=${BIN:-$NS3/build/scratch/ns3.42-AstraSimNetwork-default}
 REMOTE=${REMOTE:-$ASTRA/examples/remote_memory/analytical/no_memory_expansion.json}
 

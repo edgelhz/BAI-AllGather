@@ -74,27 +74,7 @@ Expected 3x4 output:
 
 ## Reproduce Network Experiments
 
-Original experiment scripts use Docker paths including
-`/app/astra-sim/`, `/opt/venv/` and `/tmp/`.
-
-Check `reproducibility/path_audit.md` first.
-
-Some scripts support environment variables such as:
-
-- ASTRA
-- CAPI
-- PY
-- CONVERTER
-- BAI_RUNNER
-- HIER_RUNNER
-
-Other paths require manual adaptation.
-
-The historical BASE variable often represents the
-experimental workspace rather than this repository.
-
-Configuration files in `configs/observed/` are original
-snapshots and should not be modified in place.
+Historical configuration snapshots are preserved unchanged. Use `scripts/materialize_sim_inputs.py` for portable runtime inputs and `scripts/run_with_repo_env.sh` for workspace-relative runner paths. Activate the corresponding Python environment before running experiments.
 
 Default link configuration:
 
@@ -115,16 +95,12 @@ central switch.
 Results cover message-size sensitivity, bandwidth,
 scalability and controlled Deferred-Inter ablation.
 
-The 21-point multi-node message-size CSV was reconstructed
-from previously completed experiments.
 
 A representative 3x4, 16-MiB repeatability run reproduced
 14,128,570 cycles and all 132 normalized FCT records.
 
 This does not imply zero variance for all configurations.
 
-End-to-end simulation from a new clean machine has not
-yet been verified.
 
 Verify release file integrity:
 
@@ -134,3 +110,83 @@ sha256sum -c reproducibility/checksums.sha256
 
 Review `THIRD_PARTY.md` and
 `reproducibility/release_audit.md` before publication.
+
+## Reproducibility: 2026 Revision
+
+### Research development
+
+BAI-AllGather was initially developed and analyzed on a
+two-node hierarchical GPU network. Its cut-aware remote
+seeding and dependency-ready interleaving principles were
+subsequently generalized to multi-node configurations.
+
+The multi-node generator uses parameterized node-pair
+planning, local forwarding, and remaining-delivery
+completion while preserving the original scheduling idea.
+
+See [Algorithm Evolution](reproducibility/ALGORITHM_EVOLUTION.md).
+
+### Complete 2x4 simulator configuration
+
+The source-verified reference model is documented in
+[R1 Execution Model](reproducibility/r1/EXECUTION_MODEL.md).
+
+Original experiment inputs:
+
+- `configs/observed/r1_2x4_network.txt`
+- `configs/observed/r1_2x4_system.json`
+- `configs/topology/r1_2x4_topology.txt`
+
+The physical links are full duplex: 400 Gbps per direction
+for GPU access and 100 Gbps per direction for the inter-switch
+connection. Multiple active RDMA queue pairs share NIC egress
+resources. Custom SEND/RECV operations use zero front-end delay.
+
+Verify the archived inputs:
+
+```bash
+sha256sum -c reproducibility/r1/inputs.sha256
+```
+
+### Portable runtime inputs
+
+Generate network and system configuration working copies
+using the current repository and ET trace locations:
+
+```bash
+python3 scripts/materialize_sim_inputs.py \
+  --et-prefix "$ET_PREFIX" \
+  --output-dir "./work/2x4"
+```
+
+`ET_PREFIX` identifies the generated Chakra traces with
+suffixes `.0.et` through `.7.et`. The archived configuration
+files remain unchanged.
+
+### Measured offline scheduling overhead
+
+Original server-side measurements are available in
+[the R4 measurement records](reproducibility/r4/README.md).
+
+| GPUs | Planning (ms) | Total preparation (ms) |
+|---|---:|---:|
+| 2x4 | 116.287 | 447.912 |
+| 2x16 | 416.314 | 947.816 |
+| 4x4 | 116.054 | 447.134 |
+| 8x4 | 166.330 | 696.454 |
+
+Each configuration uses one warm-up and five timed runs.
+Values are medians. These are offline preparation costs,
+separate from simulated communication completion times.
+
+Run the measurement tool with:
+
+```bash
+BAI_PY=/path/to/python3 \
+  bash scripts/run_offline_overhead.sh
+```
+
+The generator and converter paths can also be overridden
+using `BAI_GENERATOR` and `CHAKRA_CONVERTER`.
+
+Original samples and manifests are in `reproducibility/r4/`.

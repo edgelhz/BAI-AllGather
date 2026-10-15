@@ -1,0 +1,16 @@
+{
+  "generator": "/app/astra-sim/astra-sim/bai_multinode_remote_core/bai_multinode_remote_core.py",
+  "sha256": "fcdb2ba1d581d45de7ce756607536edf45a57081298679459e2e880043705515",
+  "converter": "/app/astra-sim/collectiveapi-046d961/chakra_converter/et_converter.py",
+  "cases": [
+    "2x4",
+    "2x16",
+    "4x4",
+    "8x4"
+  ],
+  "repetitions": 5,
+  "warmups": 1,
+  "chunk_bytes": 16777216,
+  "mode": "core",
+  "max_local_rounds": 1
+}

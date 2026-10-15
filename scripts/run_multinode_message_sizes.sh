@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
+BAI_WORKSPACE="${BAI_WORKSPACE:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
 set -euo pipefail
 
-PY="${PY:-/opt/venv/astra-sim/bin/python3}"
-BASE="${BASE:-/app/astra-sim/astra-sim/bai_multinode_remote_core}"
+PY="${PY:-${BAI_PY:-python3}}"
+BASE="${BASE:-${BAI_WORKSPACE}/astra-sim/bai_multinode_remote_core}"
 ROOT="${ROOT:-$BASE/perf_star_16MiB}"
 SCAN="${SCAN:-$BASE/message_sweep_multinode_20261013}"
 

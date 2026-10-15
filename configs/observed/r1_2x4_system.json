@@ -1,0 +1,9 @@
+{
+  "scheduling-policy": "FIFO",
+  "preferred-dataset-splits": 1,
+  "active-chunks-per-dimension": 1,
+  "all-gather-implementation-custom": [
+    "/app/astra-sim/collectiveapi/runs/fullmesh_ring_priority_v2_matched_20260919_083537/16MiB/prior_et/custom_allgather"
+  ],
+  "local-mem-bw": 1600
+}
