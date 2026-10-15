@@ -71,8 +71,6 @@ Expected 3x4 output:
 - 24 inter-node deliveries
 - 108 intra-node deliveries
 
-This validates schedule generation, not full simulator
-reproduction on a clean machine.
 
 ## Reproduce Network Experiments
 
